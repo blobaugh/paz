@@ -10,6 +10,7 @@
  * 
  * @license 100% free to use and modify. Contributors are not responsible for any damage. Please send back any improvements
  *
+ * @todo Allow paz to be called from inside and PHP app instead of just the commandline
  * @todo add param that will use a particular scaffold
  * @todo read custom .cscfg, .csdef, web.config, diagnostics.wadcfg files
  * @todo Add ability to deploy from command line
