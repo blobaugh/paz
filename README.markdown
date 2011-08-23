@@ -8,6 +8,11 @@ Given a simple application needing only a webrole, paz will automagically conver
 __Very Beta Project!__ 
 Understand that this project is in a very early development phase. Please report all bugs and/or feature requests on the Github project issue tracker
 
+Requirements
+------------
+paz relies on the Windows Azure SDK for PHP being installed correctly. See
+http://azurephp.interoperabilitybridges.com/articles/setup-the-windows-azure-sdk-for-php
+
 Contributing
 ------------
 Want to contribute? Please keep all code in this single self contained file :) 
