@@ -50,6 +50,22 @@ if($cmdparams['noSDK'] == 'false') {
 }
 
 /*
+ * If the ServiceConfiguration.cscfg and ServiceDefinition.csdef files
+ * exist in the project dir move them out and use them instead of the supplied
+ * defaults
+ * 
+ * NOTE: Will need to ensure the proper startup scripts are still in place
+ */
+echo "\nLooking for: " . $cmdparams['tempBuild'] . "/PhpOnAzure.Web/ServiceConfiguration.cscfg";
+if(file_exists($cmdparams['tempBuild'] . "/PhpOnAzure.Web/ServiceConfiguration.cscfg") && file_exists($cmdparams['tempBuild'] . "/PhpOnAzure.Web/ServiceDefinition.csdef")) {
+    echo "\nUpdating config files";
+    unlink($cmdparams['tempBuild'] . "/ServiceConfiguration.cscfg");
+    unlink($cmdparams['tempBuild'] . "/ServiceDefinition.csdef");
+    rename($cmdparams['tempBuild'] . "/PhpOnAzure.Web/ServiceConfiguration.cscfg", $cmdparams['tempBuild'] . "/ServiceConfiguration.cscfg");
+    rename($cmdparams['tempBuild'] . "/PhpOnAzure.Web/ServiceDefinition.csdef", $cmdparams['tempBuild'] . "/ServiceDefinition.csdef");
+}
+
+/*
  * Build the package
  */
 echo "\nCreating the package...";
@@ -74,13 +90,13 @@ function displayHelp() {
     echo "\n\tnoSDK - If present will not copy the Windows Azure SDK for PHP Microsoft folder to project";
     echo "\n\tsdkPath - Override default Windows Azure SDK for PHP path if not default install";
     echo "\n\ttempBuild - Override the temp build location";
-    echo "\n\n\nSee ____ for documentation\n";
+    echo "\n\n\nSee https://github.com/blobaugh/paz for documentation\n";
 }
 
 function checkParams() {
-    global $cmdparams;
+    global $cmdparams, $argv;
     
-    if(isset($cmdparams['help'])) {
+    if(isset($cmdparams['help']) || count($argv) < 2) {
         displayHelp();
         exit();
     }
@@ -256,4 +272,30 @@ function rcopy($src, $dest){
             rcopy($f->getRealPath(), "$dest/$f");
         }
     }
+}
+
+function move($src, $dest){
+
+    // If source is not a directory stop processing
+    if(!is_dir($src)) return false;
+
+    // If the destination directory does not exist create it
+    if(!is_dir($dest)) { 
+        if(!mkdir($dest)) {
+            // If the destination directory could not be created stop processing
+            return false;
+        }    
+    }
+
+    // Open the source directory to read in files
+    $i = new DirectoryIterator($src);
+    foreach($i as $f) {
+        if($f->isFile()) {
+            rename($f->getRealPath(), "$dest/" . $f->getFilename());
+        } else if(!$f->isDot() && $f->isDir()) {
+            $this->move($f->getRealPath(), "$dest/$f");
+            @unlink($f->getRealPath());
+        }
+    }
+    @unlink($src);
 }
