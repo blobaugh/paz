@@ -1,0 +1,1 @@
+php paz.php %*
