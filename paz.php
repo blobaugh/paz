@@ -69,6 +69,7 @@ if(file_exists($cmdparams['tempBuild'] . "/PhpOnAzure.Web/ServiceConfiguration.c
  * Build the package
  */
 echo "\nCreating the package...";
+//echo "\npackage create -in={$cmdparams['tempBuild']} -out={$cmdparams['out']} -dev={$cmdparams['dev']}";
 exec("package create -in={$cmdparams['tempBuild']} -out={$cmdparams['out']} -dev={$cmdparams['dev']}");
 
 echo "\n\nPackage created in {$cmdparams['out']}\n\n";
@@ -76,7 +77,7 @@ echo "\n\nPackage created in {$cmdparams['out']}\n\n";
 /*
  * Clean up the temp build directory
  */
-rrmdir($cmdparams['tempBuild']);
+//rrmdir($cmdparams['tempBuild']);
 
 
 function displayHelp() {
@@ -85,7 +86,7 @@ function displayHelp() {
     echo "\n\nParameters:";
     echo "\n\thelp - Display this menu";
     echo "\n\tin - Source of PHP project";
-    echo "\n\tout - Output of Windows Azure package";
+    echo "\n\tout - Output of Windows Azure package. If not specified the project directory from -in will be used";
     echo "\n\tdev - If flag present local development environment will be used";
     echo "\n\tnoSDK - If present will not copy the Windows Azure SDK for PHP Microsoft folder to project";
     echo "\n\tsdkPath - Override default Windows Azure SDK for PHP path if not default install";
