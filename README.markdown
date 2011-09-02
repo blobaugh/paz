@@ -39,6 +39,18 @@ Windows:
     - Begin using paz from the command line :)
 
 
+Custom ServiceConfiguration.cscfg and ServiceDefinition.csdef files
+-------------------------------------------------------------------
+
+paz support custom ServiceConfiguration.cscfg and ServiceDefinition.csdef files. To use custom files simply place them in the root directory with your PHP files. After paz packages your application they will be removed so that they are not accessible on the website.
+
+****NOTE**** Right now there are a couple startups scripts that MUST be present in the ServiceDefinition.csdef file in order to properly run PHP on Windows Azure. paz will not currently add these back into any custom ServiceDefinition.csdef file. Make sure that you have added them before you attempt to deploy. The section of code you will need is as follows:
+<Startup>
+      <Task commandLine="add-environment-variables.cmd" executionContext="elevated" taskType="simple" />
+      <Task commandLine="install-php.cmd" executionContext="elevated" taskType="simple" />
+</Startup> 
+
+
 Demo on Windows
 ---------------
 
