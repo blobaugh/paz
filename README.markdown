@@ -68,3 +68,24 @@ For a quick demo I will be using a simple pre-built PHP CMS application that doe
         -- paz -in "C:\temp\pluck" -noSDK
 
 That's It!
+
+Sample Usage
+------------
+
+To create a deployment package in the current directory simply type:
+paz
+
+To create a deployment package inside of the project directory:
+paz -in path/to/project
+
+To create a deployment package inside a specific output folder
+paz -in path/to/project -out path/to/output
+
+To develop locally using the compute emulator
+paz -in path/to/project -dev
+
+To ensure the Windows Azure SDK for PHP libraries are not added by paz
+paz -in path/to/project -noSDK
+
+If the Windows Azure SDK for PHP is not installed in the default location
+paz -in path/to/project -sdkPath path/to/sdk
