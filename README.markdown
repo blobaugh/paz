@@ -78,14 +78,14 @@ paz
 To create a deployment package inside of the project directory:
 paz -in path/to/project
 
-To create a deployment package inside a specific output folder
+To create a deployment package inside a specific output folder:
 paz -in path/to/project -out path/to/output
 
-To develop locally using the compute emulator
+To develop locally using the compute emulator:
 paz -in path/to/project -dev
 
-To ensure the Windows Azure SDK for PHP libraries are not added by paz
+To ensure the Windows Azure SDK for PHP libraries are not added by paz:
 paz -in path/to/project -noSDK
 
-If the Windows Azure SDK for PHP is not installed in the default location
+If the Windows Azure SDK for PHP is not installed in the default location:
 paz -in path/to/project -sdkPath path/to/sdk
