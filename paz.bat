@@ -5,4 +5,4 @@ REM See http://github.com/blobaugh/paz
 set PAZDIR=%~dp0
 
 
-php %PAZDIR%\paz.php %*
+php "%PAZDIR%\paz.php" %*
